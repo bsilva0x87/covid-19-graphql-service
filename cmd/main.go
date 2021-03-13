@@ -12,11 +12,21 @@ import (
 )
 
 func init() {
-	env.Load()
+	err := env.Load()
+
+	if err != nil {
+		fmt.Println("Please add a .env file at the project root.\nCheck the README file.")
+		os.Exit(0)
+	}
 }
 
 func main() {
 	_, playground := os.LookupEnv("GRAPHQL_PLAYGROUND")
+
+	port, envPort := os.LookupEnv("PORT")
+	if !envPort {
+		port = "4567"
+	}
 
 	schema, _ := graphql.NewSchema(graphql.SchemaConfig{
 		Query: schema.Query,
@@ -28,8 +38,8 @@ func main() {
 	})
 
 	fmt.Println("Starting COVID-19 GraphQL Service!...")
-	fmt.Println("Server listening on http://localhost:4567/graphql")
+	fmt.Println("Server listening on http://localhost:$PORT/graphql")
 
 	http.Handle("/graphql", handler)
-	http.ListenAndServe(":4567", nil)
+	http.ListenAndServe(fmt.Sprintf(":%s", port), nil)
 }

@@ -17,6 +17,8 @@ The package `/pkg` covers `models`, `schema`, `services` and `utils`:
 The package `/test` covers only `testutil`
 * `test/testutil` covers an HTTP Server to mock request data, avoiding real work requests.
 
+The package `/bin` covers a build binary for [main](cmd/) executable.
+
 ## How to execute
 This project raise a new HTTP Server and listen to request on port :4567.
 
@@ -46,13 +48,18 @@ go test -v
 ```
 Optionally, you can use cover profile `go test ./pkg/ -coverprofile=coverage.out -v` and `go tool cover -html coverage.out` to open a package coverage browser version.
 
+## Heroku
+This project is running at Heroku. Check it out! (Playground enabled)
+[COVID-19 GraphQL Service on Heroku](https://covid-19-graphql-service.herokuapp.com/graphql)
+
 ### Extra
 This project uses `.env` to load environment variables. You'll need to create a new file on the root directory called `.env` before run. Fill this file with these values:
 ```
 COVID_SERVICE_ENDPOINT=https://covid-19-data.p.rapidapi.com
 COVID_SERVICE_API_KEY=get-your-rapid-api-key
 GRAPHQL_PLAYGROUND=true
+PORT=4567
 ```
-Optionally, you can use GraphQL Playground setting the enviroment variable `GRAPHQL_PLAYGROUND`as `true`.
+Optionally, you can use GraphQL Playground setting the enviroment variable `GRAPHQL_PLAYGROUND` as `true`.
 
 &copy;bsilva0x87, 2021.
