@@ -12,12 +12,7 @@ import (
 )
 
 func init() {
-	err := env.Load()
-
-	if err != nil {
-		fmt.Println("Please add a .env file at the project root.\nCheck the README file.")
-		os.Exit(0)
-	}
+	env.Load()
 }
 
 func main() {
@@ -38,7 +33,7 @@ func main() {
 	})
 
 	fmt.Println("Starting COVID-19 GraphQL Service!...")
-	fmt.Println("Server listening on http://localhost:$PORT/graphql")
+	fmt.Println(fmt.Sprintf("Server listening on http://localhost:%s/graphql", port))
 
 	http.Handle("/graphql", handler)
 	http.ListenAndServe(fmt.Sprintf(":%s", port), nil)
